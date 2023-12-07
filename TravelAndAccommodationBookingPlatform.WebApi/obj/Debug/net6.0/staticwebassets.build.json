@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "EMiYuqHHQnl5Olg3o9plkX/fRA8h1cFcaIOUVwA8iMg=",
+  "Source": "TravelAndAccommodationBookingPlatform.WebApi",
+  "BasePath": "_content/TravelAndAccommodationBookingPlatform.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

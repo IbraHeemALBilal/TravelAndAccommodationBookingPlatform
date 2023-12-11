@@ -14,11 +14,11 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly CityService _cityService;
+        private readonly ICityService _cityService;
 
-        public CityController(CityService cityService, IMapper mapper)
+        public CityController(ICityService cityService)
         {
-            _cityService = cityService ?? throw new ArgumentNullException(nameof(cityService));
+            _cityService = cityService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllCities()
@@ -33,7 +33,6 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCityById(int id)
         {
@@ -51,14 +50,13 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
-
         [HttpPost]
-        public async Task<IActionResult> AddCity([FromBody] CityDto cityDto)
+        public async Task<IActionResult> CraeateCity([FromBody] CityDto cityDto)
         {
             try
             {
                 await _cityService.AddCityAsync(cityDto);
-                return Ok(cityDto);
+                return Ok(new { message = "City Created successfully" });
             }
             catch (Exception ex)
             {
@@ -72,7 +70,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             {
                 await _cityService.UpdateCityAsync(id, cityUpdateDto);
 
-                return NoContent();
+                return Ok(new { message = "City updated successfully" });
             }
             catch (Exception ex)
             {
@@ -87,12 +85,32 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             try
             {
                 await _cityService.DeleteCityAsync(id);
-                return NoContent(); 
+                return Ok(new { message = "City deleted successfully" });
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
+        [HttpGet("trending")]
+        public async Task<IActionResult> GetTrendingDestinations()
+        {
+            try
+            {
+                var trendingCities = await _cityService.GetTrendingDestinationsAsync();
+
+                if (trendingCities.Any())
+                {
+                    return Ok(trendingCities);
+                }
+
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }

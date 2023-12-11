@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
+namespace TravelAndAccommodationBookingPlatform.Db.Migrations
 {
     public partial class AdddingReviews : Migration
     {

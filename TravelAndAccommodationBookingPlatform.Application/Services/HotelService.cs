@@ -10,13 +10,13 @@ using TravelAndAccommodationBookingPlatform.Application.Dto_Display;
 
 namespace TravelAndAccommodationBookingPlatform.Application.Services
 {
-    public class HotelService
+    public class HotelService:IHotelService
     {
-        private readonly HotelRepository _hotelRepository;
+        private readonly IHotelRepository _hotelRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<HotelService> _logger; 
+        private readonly ILogger<IHotelRepository> _logger; 
 
-        public HotelService(HotelRepository hotelRepository, IMapper mapper, ILogger<HotelService> logger)
+        public HotelService(IHotelRepository hotelRepository, IMapper mapper, ILogger<IHotelRepository> logger)
         {
             _hotelRepository = hotelRepository;
             _mapper = mapper;
@@ -84,7 +84,6 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 _logger.LogError($"Error in UpdateHotelAsync: {ex.Message}");
             }
         }
-
         public async Task DeleteHotelAsync(int id)
         {
             try
@@ -100,5 +99,79 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 _logger.LogError($"Error in DeleteHotelAsync: {ex.Message}");
             }
         }
+        public async Task<List<HotelDisplayDto>> FilterHotelsAsync(HotelFilterBodyDto filterBody)
+        {
+            try
+            {
+                var allHotels = await _hotelRepository.GetAllWithRelatedDataAsync();
+                var filteredHotels = ApplyFilters(allHotels, filterBody);
+
+                return _mapper.Map<List<HotelDisplayDto>>(filteredHotels);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in FilterHotelsAsync: {ex.Message}");
+                return new List<HotelDisplayDto>();
+            }
+        }
+        private IEnumerable<Hotel> ApplyFilters(IEnumerable<Hotel> hotels, HotelFilterBodyDto filterBody)
+        {
+            if (filterBody.MinPrice.HasValue || filterBody.MaxPrice.HasValue)
+            {
+                hotels = hotels.Where(h =>
+                    h.Rooms.Any(r =>
+                        (!filterBody.MinPrice.HasValue || r.PricePerNight >= filterBody.MinPrice.Value) &&
+                        (!filterBody.MaxPrice.HasValue || r.PricePerNight <= filterBody.MaxPrice.Value)
+                    )
+                );
+            }
+
+            if (filterBody.StarRating.HasValue)
+            {
+                hotels = hotels.Where(h => h.StarRating == filterBody.StarRating.Value);
+            }
+
+            if (filterBody.AmenitiesIds != null && filterBody.AmenitiesIds.Any())
+            {
+                hotels = hotels.Where(h => filterBody.AmenitiesIds.All(amenityId =>
+                    h.HotelAmenities.Any(ha => ha.AmenityId == amenityId)));
+            }
+
+            if (filterBody.RoomType.HasValue)
+            {
+                hotels = hotels.Where(h => h.Rooms.Any(r => r.RoomType == filterBody.RoomType.Value));
+            }
+
+            return hotels;
+        }
+        public async Task<List<HotelDisplayDto>> GetVisitedHotelsByUserAsync(int userId)
+        {
+            try
+            {
+                var visitedHotels = await _hotelRepository.GetVisitedHotelsByUserAsync(userId);
+                return _mapper.Map<List<HotelDisplayDto>>(visitedHotels);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in GetVisitedHotelsByUserAsync: {ex.Message}");
+                return new List<HotelDisplayDto>();
+            }
+        }
+        public async Task<List<HotelDisplayDto>> GetHotelsWithAvailableDealsAsync()
+        {
+            try
+            {
+                var hotels = await _hotelRepository.GetHotelsWithAvailableDealsAsync();
+                return _mapper.Map<List<HotelDisplayDto>>(hotels);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in GetHotelsWithAvailableDealsAsync: {ex.Message}");
+                return new List<HotelDisplayDto>();
+            }
+        }
+
+
+
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelAndAccommodationBookingPlatform.Domain.Entities;
+using TravelAndAccommodationBookingPlatform.Db.Entities;
 
 namespace TravelAndAccommodationBookingPlatform.Db.Entities
 {
@@ -23,6 +23,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Entities
         public List<Room> Rooms { get; set; }
         public List<HotelAmenity> HotelAmenities { get; set; }
         public List<Review> Reviews { get; set; }
+
 
     }
 }

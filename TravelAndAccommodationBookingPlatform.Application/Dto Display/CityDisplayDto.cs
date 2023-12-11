@@ -15,5 +15,6 @@ namespace TravelAndAccommodationBookingPlatform.Application.Dto_Display
         public string PostOffice { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

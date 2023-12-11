@@ -9,7 +9,7 @@ using TravelAndAccommodationBookingPlatform.Db;
 
 #nullable disable
 
-namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
+namespace TravelAndAccommodationBookingPlatform.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231207212436_Creation and Modification Dates")]

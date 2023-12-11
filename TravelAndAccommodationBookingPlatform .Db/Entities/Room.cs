@@ -19,7 +19,10 @@ namespace TravelAndAccommodationBookingPlatform.Db.Entities
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
+        public int NumberOfRooms { get; set; }
         public List<RoomImage> RoomImages { get; set; }
         public List<Booking> Bookings { get; set; }
+        public List<Deal> Deals { get; set; }
+
     }
 }

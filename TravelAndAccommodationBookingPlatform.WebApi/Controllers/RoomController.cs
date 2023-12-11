@@ -14,10 +14,10 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly RoomService _roomService;
-        public RoomController(RoomService roomService)
+        private readonly IRoomService _roomService;
+        public RoomController(IRoomService roomService)
         {
-            _roomService = roomService ?? throw new ArgumentNullException(nameof(roomService));
+            _roomService = roomService;
         }
 
         [HttpGet]
@@ -51,14 +51,13 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> AddRoom([FromBody] RoomDto roomDto)
         {
             try
             {
                 await _roomService.AddRoomAsync(roomDto);
-                return Ok(roomDto);
+                return Ok(new { message = "Room Created successfully" });
             }
             catch (Exception ex)
             {
@@ -72,7 +71,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             try
             {
                 await _roomService.UpdateRoomAsync(id,roomDto);
-                return Ok(roomDto);
+                return Ok(new { message = "Room updated successfully" });
             }
             catch (Exception ex)
             {
@@ -86,12 +85,13 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             try
             {
                 await _roomService.DeleteRoomAsync(id);
-                return NoContent();
+                return Ok(new { message = "Room deleted successfully" });
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
+
     }
 }

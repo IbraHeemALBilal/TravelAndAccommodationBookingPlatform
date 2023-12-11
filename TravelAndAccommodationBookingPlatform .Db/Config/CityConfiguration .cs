@@ -43,6 +43,9 @@ namespace TravelAndAccommodationBookingPlatform.Db.Config
                 .HasForeignKey(h => h.CityId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Property(c => c.ImageUrl)
+                .IsRequired(false);
+
             //SeedData(builder);
         }
         private static void SeedData(EntityTypeBuilder<City> builder)

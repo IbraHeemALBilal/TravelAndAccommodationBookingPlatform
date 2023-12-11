@@ -8,7 +8,7 @@ using TravelAndAccommodationBookingPlatform.Db;
 
 #nullable disable
 
-namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
+namespace TravelAndAccommodationBookingPlatform.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -90,6 +90,9 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -106,6 +109,33 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                     b.HasKey("CityId");
 
                     b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Deal", b =>
+                {
+                    b.Property<int>("DealId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DealId"), 1L, 1);
+
+                    b.Property<decimal>("DealPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DealId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Deals");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Hotel", b =>
@@ -195,6 +225,39 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                     b.ToTable("HotelImages");
                 });
 
+            modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"), 1L, 1);
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Room", b =>
                 {
                     b.Property<int>("RoomId")
@@ -224,6 +287,9 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("NumberOfRooms")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PricePerNight")
                         .HasColumnType("decimal(18,2)");
@@ -287,39 +353,148 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
 
-            modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Domain.Entities.Review", b =>
-                {
-                    b.Property<int>("ReviewId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"), 1L, 1);
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DatePosted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("HotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ReviewId");
-
-                    b.HasIndex("HotelId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reviews");
+                    b.HasData(
+                        new
+                        {
+                            UserId = 2,
+                            PasswordHash = "$2a$10$Wze9RE4Q/fUifWIG2VX9webaK6Ay7xYhdJcUhxpvprCPxF2hiIKGK",
+                            Role = "RegularUser",
+                            Username = "User2"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            PasswordHash = "$2a$10$FD0/.xPXzMYjJvJ68cS7peeTPPlKc0TpqJ52pbT6lAok8kyee3CQS",
+                            Role = "RegularUser",
+                            Username = "User3"
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            PasswordHash = "$2a$10$Uhj6iEYdml/B5skLz32G.e.ppzIF7sb14dDFGdnPdmbi2CF3aZcuC",
+                            Role = "RegularUser",
+                            Username = "User4"
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            PasswordHash = "$2a$10$btTnCSZcSkJEydsRrlrkwOiRM8AY5iHXDVA/oE9xAb0U8zLGhhOc2",
+                            Role = "RegularUser",
+                            Username = "User5"
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            PasswordHash = "$2a$10$5YQo0d1DbphoYxXJRL1kYeeT4LXzA1xg7HeTQy9ux3EZH9Sx1wxS6",
+                            Role = "RegularUser",
+                            Username = "User6"
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            PasswordHash = "$2a$10$TYo.C6v7V/LrId72kIhGleJhmh6MXpXlCr4EfyWbJYNl50LDmQwRe",
+                            Role = "RegularUser",
+                            Username = "User7"
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            PasswordHash = "$2a$10$f3DDY6zAj0ZFoEJiIFCNPudFRC4Pj9JR0k7/KiiKWH7NLKKvoCUnO",
+                            Role = "RegularUser",
+                            Username = "User8"
+                        },
+                        new
+                        {
+                            UserId = 9,
+                            PasswordHash = "$2a$10$3uv56znrejFwL3std2PC.uxuaCTUbdStkFl5/PfkTvkrExZ4rbV32",
+                            Role = "RegularUser",
+                            Username = "User9"
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            PasswordHash = "$2a$10$71A4i32h1L8hnvIZU3KDR.U1UCkHeotbrh3RiNr76AmE.EoQBraGm",
+                            Role = "RegularUser",
+                            Username = "User10"
+                        },
+                        new
+                        {
+                            UserId = 11,
+                            PasswordHash = "$2a$10$v.dOWMh6LItm1kdtWQQ2ceG28cPCHjvE5FXyCloqyg6F4PKaDlodq",
+                            Role = "RegularUser",
+                            Username = "User11"
+                        },
+                        new
+                        {
+                            UserId = 12,
+                            PasswordHash = "$2a$10$ynY33n32XlQ.hlpAd8bDBO.BiyPj6jlOr1XMByiDxijKsFmS0t2yC",
+                            Role = "RegularUser",
+                            Username = "User12"
+                        },
+                        new
+                        {
+                            UserId = 13,
+                            PasswordHash = "$2a$10$JV/VhXBIcTkgnDnXoQr/A.hgIdsqobnjUPiuZ513Pvcgm1rLoctgq",
+                            Role = "RegularUser",
+                            Username = "User13"
+                        },
+                        new
+                        {
+                            UserId = 14,
+                            PasswordHash = "$2a$10$qHjg7WMklUaVQBoD8S1v9.1WVMbElgoKf7sqUtEWulfW57oPJ/UNG",
+                            Role = "RegularUser",
+                            Username = "User14"
+                        },
+                        new
+                        {
+                            UserId = 15,
+                            PasswordHash = "$2a$10$h.w5qE.5SsEs2Ucnq1u9Be63a7VonsI1bTzYBniOMeiKOzROMlyHS",
+                            Role = "RegularUser",
+                            Username = "User15"
+                        },
+                        new
+                        {
+                            UserId = 16,
+                            PasswordHash = "$2a$10$4zOtjKFftdcg2FPd9b8oO.p9Xre0xdxVXUXtUMSzq7suoKq1YwDAa",
+                            Role = "RegularUser",
+                            Username = "User16"
+                        },
+                        new
+                        {
+                            UserId = 17,
+                            PasswordHash = "$2a$10$s/p2KHPOPIlm0OlTugWRVehoucjbPSJkv7REPRPeozAhvxfbm3s.e",
+                            Role = "RegularUser",
+                            Username = "User17"
+                        },
+                        new
+                        {
+                            UserId = 18,
+                            PasswordHash = "$2a$10$UcR6Wp98w3UOCrsiTItqr.zutCDxqVH93dpA1uU0VkpCVQxCUiKZO",
+                            Role = "RegularUser",
+                            Username = "User18"
+                        },
+                        new
+                        {
+                            UserId = 19,
+                            PasswordHash = "$2a$10$qL7TN1QbGe0mGH04fnkfQuXluys1R.ulZKf885GHxY1RjW6VbE2mm",
+                            Role = "RegularUser",
+                            Username = "User19"
+                        },
+                        new
+                        {
+                            UserId = 20,
+                            PasswordHash = "$2a$10$SnfFuaGTZMvD0e2pbbhQWOS5xP1Hwvku6KHrGiaLJQ.ESPhsu5VNC",
+                            Role = "RegularUser",
+                            Username = "User20"
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            PasswordHash = "$2a$10$wEnIrH5ShlVpWcbIJpMDl.Ibzh/rlKI938/K7spUFyPoOhr06p.Im",
+                            Role = "Admin",
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Booking", b =>
@@ -339,6 +514,17 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                     b.Navigation("Room");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Deal", b =>
+                {
+                    b.HasOne("TravelAndAccommodationBookingPlatform.Db.Entities.Room", "Room")
+                        .WithMany("Deals")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Hotel", b =>
@@ -382,6 +568,25 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                     b.Navigation("Hotel");
                 });
 
+            modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Review", b =>
+                {
+                    b.HasOne("TravelAndAccommodationBookingPlatform.Db.Entities.Hotel", "Hotel")
+                        .WithMany("Reviews")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelAndAccommodationBookingPlatform.Db.Entities.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Room", b =>
                 {
                     b.HasOne("TravelAndAccommodationBookingPlatform.Db.Entities.Hotel", "Hotel")
@@ -402,25 +607,6 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Domain.Entities.Review", b =>
-                {
-                    b.HasOne("TravelAndAccommodationBookingPlatform.Db.Entities.Hotel", "Hotel")
-                        .WithMany("Reviews")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TravelAndAccommodationBookingPlatform.Db.Entities.User", "User")
-                        .WithMany("Reviews")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hotel");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Amenity", b =>
@@ -447,6 +633,8 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Migrations
             modelBuilder.Entity("TravelAndAccommodationBookingPlatform.Db.Entities.Room", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("Deals");
 
                     b.Navigation("RoomImages");
                 });

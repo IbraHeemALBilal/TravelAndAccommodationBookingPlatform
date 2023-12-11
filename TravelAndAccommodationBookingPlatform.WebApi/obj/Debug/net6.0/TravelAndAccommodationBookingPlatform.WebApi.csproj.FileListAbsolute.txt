@@ -70,3 +70,6 @@ C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommod
 C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommodationBookingPlatform.WebApi\obj\Debug\net6.0\TravelAndAccommodationBookingPlatform.WebApi.pdb
 C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommodationBookingPlatform.WebApi\obj\Debug\net6.0\TravelAndAccommodationBookingPlatform.WebApi.genruntimeconfig.cache
 C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommodationBookingPlatform.WebApi\obj\Debug\net6.0\ref\TravelAndAccommodationBookingPlatform.WebApi.dll
+C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommodationBookingPlatform.WebApi\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommodationBookingPlatform.WebApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\Ola\Desktop\Travel and Accommodation Booking Platform\TravelAndAccommodationBookingPlatform.WebApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

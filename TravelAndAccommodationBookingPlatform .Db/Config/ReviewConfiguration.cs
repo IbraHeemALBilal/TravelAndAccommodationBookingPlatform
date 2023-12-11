@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TravelAndAccommodationBookingPlatform.Db.Entities;
-using TravelAndAccommodationBookingPlatform.Domain.Entities;
+using TravelAndAccommodationBookingPlatform.Db.Entities;
 
-namespace TravelAndAccommodationBookingPlatform.Domain.Config
+namespace TravelAndAccommodationBookingPlatform.Db.Config
 {
     public class ReviewConfiguration : IEntityTypeConfiguration<Review>
     {

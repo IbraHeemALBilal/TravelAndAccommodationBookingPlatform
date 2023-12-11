@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelAndAccommodationBookingPlatform.Db.Entities;
 using TravelAndAccommodationBookingPlatform.Db.Enums;
+using TravelAndAccommodationBookingPlatform.Application.Dto;
+
 
 namespace TravelAndAccommodationBookingPlatform.Application.Dto_Display
 {
@@ -18,6 +21,10 @@ namespace TravelAndAccommodationBookingPlatform.Application.Dto_Display
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
+        public int NumberOfRooms { get; set; }
+        public List<RoomImageDisplayDto> RoomImages { get; set; }
+        public List<DealDto> Deals { get; set; }
+
     }
 
 }

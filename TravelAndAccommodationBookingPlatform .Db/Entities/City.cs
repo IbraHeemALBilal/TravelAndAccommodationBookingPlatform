@@ -14,6 +14,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Entities
         public string PostOffice { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
+        public string? ImageUrl { get; set; }
         public List<Hotel> Hotels { get; set; }
     }
 }

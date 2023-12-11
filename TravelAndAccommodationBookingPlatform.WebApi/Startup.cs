@@ -10,38 +10,49 @@ using TravelAndAccommodationBookingPlatform.Application.Services;
 using AutoMapper;
 using TravelAndAccommodationBookingPlatform.Application.Profiles;
 using TravelAndAccommodationBookingPlatform.Db;
-
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using TravelAndAccommodationBookingPlatform.Application.Dto;
+using TravelAndAccommodationBookingPlatform.Application.Validators;
 
 namespace TravelAndAccommodationBookingPlatform.WebApi
 {
     public class Startup
     {
         private readonly IConfiguration _configuration;
-
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddLogging();
 
-            services.AddScoped<CityRepository>();
-            services.AddScoped<CityService>();
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IHotelRepository, HotelRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IDealRepository,DealRepository>();
 
-            services.AddScoped<HotelRepository>();
-            services.AddScoped<HotelService>();
+            services.AddScoped<ICityService,CityService>();
+            services.AddScoped<IHotelService,HotelService>();
+            services.AddScoped<IRoomService,RoomService>();
+            services.AddScoped<IBookingService,BookingService>();
+            services.AddScoped<IDealService,DealService>();
 
-            services.AddScoped<RoomRepository>();
-            services.AddScoped<RoomService>();
+            services.AddAutoMapper(typeof(CityProfile),typeof(HotelProfile)
+                ,typeof(RoomProfile),typeof(BookingProfile),typeof(HotelImageProfile)
+                ,typeof(ReviewProfile),typeof(RoomImageProfile),typeof(DealProfile));
 
-            services.AddAutoMapper(typeof(CityProfile));
-            services.AddAutoMapper(typeof(HotelProfile));
-            services.AddAutoMapper(typeof(RoomProfile));
+            services.AddTransient<IValidator<CityDto>, CityDtoValidator>()
+                 .AddTransient<IValidator<HotelDto>, HotelDtoValidator>()
+                 .AddTransient<IValidator<HotelFilterBodyDto>, HotelFilterBodyDtoValidator>()
+                 .AddTransient<IValidator<BookingDto>, BookingDtoValidator>()
+                 .AddTransient<IValidator<DealDto>, DealDtoValidator>()
+                 .AddTransient<IValidator<RoomDto>, RoomDtoValidator>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -56,11 +67,9 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

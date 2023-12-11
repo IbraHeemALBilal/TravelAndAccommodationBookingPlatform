@@ -10,13 +10,13 @@ using TravelAndAccommodationBookingPlatform.Application.Dto;
 
 namespace TravelAndAccommodationBookingPlatform.Application.Services
 {
-    public class RoomService
+    public class RoomService:IRoomService
     {
-        private readonly RoomRepository _roomRepository;
+        private readonly IRoomRepository _roomRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<RoomService> _logger; 
+        private readonly ILogger<IRoomRepository> _logger; 
 
-        public RoomService(RoomRepository roomRepository, IMapper mapper, ILogger<RoomService> logger)
+        public RoomService(IRoomRepository roomRepository, IMapper mapper, ILogger<IRoomRepository> logger)
         {
             _roomRepository = roomRepository;
             _mapper = mapper;

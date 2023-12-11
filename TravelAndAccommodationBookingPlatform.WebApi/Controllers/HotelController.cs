@@ -12,11 +12,11 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
     [ApiController]
     public class HotelController : ControllerBase
     {
-        private readonly HotelService _hotelService;
+        private readonly IHotelService _hotelService;
 
-        public HotelController(HotelService hotelService)
+        public HotelController(IHotelService hotelService)
         {
-            _hotelService = hotelService ?? throw new ArgumentNullException(nameof(hotelService));
+            _hotelService = hotelService;
         }
 
         [HttpGet]
@@ -58,7 +58,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             try
             {
                 await _hotelService.AddHotelAsync(hotelDto);
-                return Ok(hotelDto);
+                return Ok(new { message = "Hotel Created successfully" });
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             {
                 await _hotelService.UpdateHotelAsync(id, hotelDto);
 
-                return NoContent();
+                return Ok(new { message = "Hotel updated successfully" });
             }
             catch (Exception ex)
             {
@@ -89,12 +89,55 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             try
             {
                 await _hotelService.DeleteHotelAsync(id);
-                return NoContent();
+                return Ok(new { message = "Hotel deleted successfully" });
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterHotels([FromQuery] HotelFilterBodyDto filterBody)
+        {
+            try
+            {
+                var filteredHotels = await _hotelService.FilterHotelsAsync(filterBody);
+                return Ok(filteredHotels);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+            }
+        }
+        [HttpGet("deals")]
+        public async Task<IActionResult> GetHotelsWithAvailableDeals()
+        {
+            try
+            {
+                var hotelsWithDealsDto = await _hotelService.GetHotelsWithAvailableDealsAsync();
+                return Ok(hotelsWithDealsDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetHotelsWithAvailableDeals action: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("visited-by-user/{userId}")]
+        public async Task<IActionResult> GetVisitedHotelsByUser(int userId)
+        {
+            try
+            {
+                var visitedHotels = await _hotelService.GetVisitedHotelsByUserAsync(userId);
+                return Ok(visitedHotels);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+            }
+        }
+
+
     }
 }

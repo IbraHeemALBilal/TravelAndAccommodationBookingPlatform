@@ -14,13 +14,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Profiles
     {
         public CityProfile()
         {
-            CreateMap<City, CityDisplayDto>();
-            CreateMap<CityDisplayDto, City>();
-
-            CreateMap<City, CityDto>();
-            CreateMap<CityDto, City>();
-
-
+            CreateMap<City, CityDisplayDto>().ReverseMap();
+            CreateMap<City, CityDto>().ReverseMap();
         }
     }
 }

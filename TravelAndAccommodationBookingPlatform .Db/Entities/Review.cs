@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Db.Entities;
 
-namespace TravelAndAccommodationBookingPlatform.Domain.Entities
+namespace TravelAndAccommodationBookingPlatform.Db.Entities
 {
     public class Review
     {
@@ -15,7 +15,6 @@ namespace TravelAndAccommodationBookingPlatform.Domain.Entities
         public string Comment { get; set; }
         public int Rating { get; set; }
         public DateTime DatePosted { get; set; }
-
         public User User { get; set; }
         public Hotel Hotel { get; set; }
     }

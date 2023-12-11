@@ -17,6 +17,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Dto
         public RoomTypeEnum RoomType { get; set; }
         public string Description { get; set; }
         public DateTime? ModifiedAt { get; set; }
+        public int NumberOfRooms { get; set; }
 
     }
 }

@@ -49,10 +49,15 @@ namespace TravelAndAccommodationBookingPlatform.Db.Config
             builder.Property(r => r.ModifiedAt)
                 .IsRequired(false);
 
+            builder.Property(r => r.NumberOfRooms)
+                .IsRequired();
+
             builder.HasMany(r => r.Bookings)
                .WithOne(b => b.Room)
                .HasForeignKey(b => b.RoomId)
                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

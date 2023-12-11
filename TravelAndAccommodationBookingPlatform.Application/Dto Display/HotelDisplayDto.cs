@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelAndAccommodationBookingPlatform.Db.Entities;
 
 namespace TravelAndAccommodationBookingPlatform.Application.Dto_Display
 {
@@ -17,5 +18,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Dto_Display
         public int CityId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
+        public decimal AveragePricePerNight { get; set; }
+        public List<ReviewDisplayDto> Reviews { get; set; }
+        public List<HotelImageDisplayDto> HotelImages { get; set; }
     }
 }

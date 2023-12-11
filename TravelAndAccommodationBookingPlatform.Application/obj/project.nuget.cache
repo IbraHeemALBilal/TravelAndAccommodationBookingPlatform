@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "w3Wi/z4yhzIWlxXpEHu4VDvEOVshfqShs//eJwkPt6uOT0qSEnlzpkhWo2iVS6Rmci5d1a7ja2wqwWXRSlRHUA==",
+  "dgSpecHash": "apVHH0Q2qP1k+cd+IOVMfJNLhtx3lyHO/EmL68KC1l37nD7rb4+ydZIK6IM2pHXifxjX0GNQBDSiC518eDqS7g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ola\\Desktop\\Travel and Accommodation Booking Platform\\TravelAndAccommodationBookingPlatform.Application\\TravelAndAccommodationBookingPlatform.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ola\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Ola\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
+    "C:\\Users\\Ola\\.nuget\\packages\\fluentvalidation\\11.8.1\\fluentvalidation.11.8.1.nupkg.sha512",
     "C:\\Users\\Ola\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\8.0.0\\microsoft.aspnetcore.jsonpatch.8.0.0.nupkg.sha512",
     "C:\\Users\\Ola\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Ola\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

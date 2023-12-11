@@ -13,13 +13,13 @@ using TravelAndAccommodationBookingPlatform.Db.Repositories;
 
 namespace TravelAndAccommodationBookingPlatform.Application.Services
 {
-    public class CityService
+    public class CityService : ICityService
     {
-        private readonly CityRepository _cityRepository;
+        private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<CityService> _logger; 
+        private readonly ILogger<ICityRepository> _logger; 
 
-        public CityService(CityRepository cityRepository, IMapper mapper, ILogger<CityService> logger)
+        public CityService(ICityRepository cityRepository, IMapper mapper, ILogger<ICityRepository> logger)
         {
             _cityRepository = cityRepository;
             _mapper = mapper;
@@ -78,8 +78,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 {
                     throw new InvalidOperationException($"City with ID {id} not found");
                 }
-                cityUpdateDto.ModifiedAt = DateTime.Now;
                 _mapper.Map(cityUpdateDto, existingCity);
+                existingCity.ModifiedAt = DateTime.Now;
 
                 await _cityRepository.UpdateAsync(existingCity);
             }
@@ -104,5 +104,21 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 _logger.LogError($"Error in DeleteCityAsync: {ex.Message}");
             }
         }
+        public async Task<List<CityDisplayDto>> GetTrendingDestinationsAsync()
+        {
+            try
+            {
+                var trendingCities = await _cityRepository.GetTrendingDestinationsAsync();
+                var trendingCityDtos = _mapper.Map<List<CityDisplayDto>>(trendingCities);
+
+                return trendingCityDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in GetTrendingDestinationsAsync: {ex.Message}");
+                return new List<CityDisplayDto>();
+            }
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Db.Enums;
-using TravelAndAccommodationBookingPlatform.Domain.Entities;
+using TravelAndAccommodationBookingPlatform.Db.Entities;
 
 namespace TravelAndAccommodationBookingPlatform.Db.Entities
 {

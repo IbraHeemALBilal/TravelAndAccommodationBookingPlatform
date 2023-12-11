@@ -32,8 +32,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Config
 
 
 
-            //SeedUsers(builder);
-
+            SeedUsers(builder);
 
         }
         private static void SeedUsers(EntityTypeBuilder<User> builder)

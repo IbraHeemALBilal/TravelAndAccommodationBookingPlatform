@@ -10,6 +10,7 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "FluentValidation.AspNetCore": "11.3.0",
           "Microsoft.AspNetCore.JsonPatch": "8.0.0",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
           "Swashbuckle.AspNetCore": "6.2.3",
@@ -47,6 +48,38 @@
           "lib/net35/BCrypt.Net.dll": {
             "assemblyVersion": "0.1.4141.31969",
             "fileVersion": "0.1.0.0"
+          }
+        }
+      },
+      "FluentValidation/11.8.1": {
+        "runtime": {
+          "lib/net6.0/FluentValidation.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.8.1.0"
+          }
+        }
+      },
+      "FluentValidation.AspNetCore/11.3.0": {
+        "dependencies": {
+          "FluentValidation": "11.8.1",
+          "FluentValidation.DependencyInjectionExtensions": "11.5.1"
+        },
+        "runtime": {
+          "lib/net6.0/FluentValidation.AspNetCore.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.3.0.0"
+          }
+        }
+      },
+      "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+        "dependencies": {
+          "FluentValidation": "11.8.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.5.1.0"
           }
         }
       },
@@ -515,6 +548,7 @@
       "TravelAndAccommodationBookingPlatform.Application/1.0.0": {
         "dependencies": {
           "AutoMapper": "12.0.1",
+          "FluentValidation": "11.8.1",
           "Microsoft.AspNetCore.JsonPatch": "8.0.0",
           "TravelAndAccommodationBookingPlatform .Db": "1.0.0"
         },
@@ -550,6 +584,27 @@
       "sha512": "sha512-sST2w361Dxt9GGMfpOTiK50wXGV64Ybb1hiX3xjEWnhVYZNF43NuySGwADJa7X1R+bA53NsFR+tuDxcYiJeIOA==",
       "path": "bcrypt.net/0.1.0",
       "hashPath": "bcrypt.net.0.1.0.nupkg.sha512"
+    },
+    "FluentValidation/11.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N72rnlE99XYB7EGA1u9y7m7kNTTynqOPBhZqDE8zr1Y0aSR4t5si94LRA7UVdAV09GaXWCErW+EiFhfbg3DSbg==",
+      "path": "fluentvalidation/11.8.1",
+      "hashPath": "fluentvalidation.11.8.1.nupkg.sha512"
+    },
+    "FluentValidation.AspNetCore/11.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jtFVgKnDFySyBlPS8bZbTKEEwJZnn11rXXJ2SQnjDhZ56rQqybBg9Joq4crRLz3y0QR8WoOq4iE4piV81w/Djg==",
+      "path": "fluentvalidation.aspnetcore/11.3.0",
+      "hashPath": "fluentvalidation.aspnetcore.11.3.0.nupkg.sha512"
+    },
+    "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iWM0LS1MDYX06pcjMEQKqHirl2zkjHlNV23mEJSoR1IZI7KQmTa0RcTtGEJpj5+iHvBCfrzP2mYKM4FtRKVb+A==",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.5.1",
+      "hashPath": "fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.JsonPatch/8.0.0": {
       "type": "package",

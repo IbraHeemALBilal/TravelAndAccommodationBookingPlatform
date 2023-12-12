@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using TravelAndAccommodationBookingPlatform.Application.Dto;
 using TravelAndAccommodationBookingPlatform.Application.Services;
 
@@ -7,6 +9,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
     [Route("api/booking")]
     [ApiController]
+    [Authorize(Roles = "RegularUser")]
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;

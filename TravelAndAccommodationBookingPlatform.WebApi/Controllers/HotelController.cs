@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Db.Entities;
 using TravelAndAccommodationBookingPlatform.Application.Services;
 using TravelAndAccommodationBookingPlatform.Application.Dto;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
     [Route("api/hotels")]
     [ApiController]
+    [Authorize]
     public class HotelController : ControllerBase
     {
         private readonly IHotelService _hotelService;
@@ -53,7 +56,8 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddHotel([FromBody] HotelDto hotelDto)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateHotel([FromBody] HotelDto hotelDto)
         {
             try
             {
@@ -67,6 +71,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateHotel(int id, [FromBody] HotelDto hotelDto)
         {
             try
@@ -84,6 +89,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
             try
@@ -97,6 +103,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpGet("filter")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> FilterHotels([FromQuery] HotelFilterBodyDto filterBody)
         {
             try
@@ -110,6 +117,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpGet("deals")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> GetHotelsWithAvailableDeals()
         {
             try
@@ -125,6 +133,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
 
         [HttpGet("visited-by-user/{userId}")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> GetVisitedHotelsByUser(int userId)
         {
             try

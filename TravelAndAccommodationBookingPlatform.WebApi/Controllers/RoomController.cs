@@ -6,12 +6,15 @@ using TravelAndAccommodationBookingPlatform.Db.Entities;
 using TravelAndAccommodationBookingPlatform.Application.Services;
 using TravelAndAccommodationBookingPlatform.Application.Dto;
 using TravelAndAccommodationBookingPlatform.Application.Dto_Display;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 
 namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
     [Route("api/rooms")]
     [ApiController]
+    [Authorize]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -52,7 +55,8 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AddRoom([FromBody] RoomDto roomDto)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateRoom([FromBody] RoomDto roomDto)
         {
             try
             {
@@ -66,6 +70,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRoom(int id, [FromBody] RoomDto roomDto)
         {
             try
@@ -80,6 +85,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
             try

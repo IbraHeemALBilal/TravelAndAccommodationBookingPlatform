@@ -7,11 +7,13 @@ using TravelAndAccommodationBookingPlatform.Application.Dto;
 using Microsoft.AspNetCore.JsonPatch;
 using AutoMapper;
 using TravelAndAccommodationBookingPlatform.Db.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
     [Route("api/cities")]
     [ApiController]
+    [Authorize]
     public class CityController : ControllerBase
     {
         private readonly ICityService _cityService;
@@ -51,6 +53,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CraeateCity([FromBody] CityDto cityDto)
         {
             try
@@ -64,6 +67,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCity(int id, [FromBody] CityDto cityUpdateDto)
         {
             try
@@ -80,6 +84,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCity(int id)
         {
             try
@@ -93,6 +98,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
             }
         }
         [HttpGet("trending")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> GetTrendingDestinations()
         {
             try

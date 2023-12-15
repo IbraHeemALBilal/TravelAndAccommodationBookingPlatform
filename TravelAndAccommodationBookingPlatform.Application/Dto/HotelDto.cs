@@ -15,7 +15,5 @@ namespace TravelAndAccommodationBookingPlatform.Application.Dto
         public string Description { get; set; }
         public int CityId { get; set; }
         public DateTime? ModifiedAt { get; set; }
-
-
     }
 }

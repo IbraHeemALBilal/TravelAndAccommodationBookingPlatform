@@ -35,6 +35,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
                 return await _context.Hotels
                     .Include(h => h.HotelImages)
                     .Include(h => h.Reviews)
+                    .Include(h => h.Rooms)
                     .FirstOrDefaultAsync(h => h.HotelId == id);
             }
             catch (Exception ex)

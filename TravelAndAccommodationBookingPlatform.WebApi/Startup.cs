@@ -107,8 +107,8 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-        .AddJwtBearer(options =>
-        {
+            .AddJwtBearer(options =>
+            {
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -119,7 +119,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
                 ValidAudience = _configuration["JwtSettings:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(key)
             };
-        });
+            });
 
             services.AddAuthorization();
         }
@@ -132,7 +132,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", " API v1");
                     options.RoutePrefix = "swagger";
                 });
             }

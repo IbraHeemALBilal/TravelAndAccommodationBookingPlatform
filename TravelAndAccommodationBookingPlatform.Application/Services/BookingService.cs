@@ -39,7 +39,6 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                     _logger.LogError("Booking conflict detected. Cannot create the booking.");
                     return false;
                 }
-
                 var bookingEntity = _mapper.Map<Booking>(bookingDto);
                 var totalPrice = await CalculateTotalPriceAsync(bookingEntity.RoomId, bookingEntity.CheckInDate, bookingEntity.CheckOutDate);
                 bookingEntity.TotalPrice = totalPrice;
@@ -72,7 +71,6 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                     {
                         pricePerNight = room.PricePerNight;
                     }
-
                     var numberOfNights = (int)(checkOutDate - checkInDate).TotalDays;
                     var totalPrice = numberOfNights * pricePerNight;
                     return totalPrice;
@@ -109,7 +107,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 return false;
             }
         }
-        private bool CheckDateRangeOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+        public bool CheckDateRangeOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
         {
             return start1 <= end2 && end1 >= start2;
         }

@@ -21,5 +21,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Dto_Display
         public decimal AveragePricePerNight { get; set; }
         public List<ReviewDisplayDto> Reviews { get; set; }
         public List<HotelImageDisplayDto> HotelImages { get; set; }
+        public List<RoomDisplayDto> Rooms { get; set; }
+
     }
 }

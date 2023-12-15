@@ -114,7 +114,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 return new List<HotelDisplayDto>();
             }
         }
-        private IEnumerable<Hotel> ApplyFilters(IEnumerable<Hotel> hotels, HotelFilterBodyDto filterBody)
+        public IEnumerable<Hotel> ApplyFilters(IEnumerable<Hotel> hotels, HotelFilterBodyDto filterBody)
         {
             if (filterBody.MinPrice.HasValue || filterBody.MaxPrice.HasValue)
             {

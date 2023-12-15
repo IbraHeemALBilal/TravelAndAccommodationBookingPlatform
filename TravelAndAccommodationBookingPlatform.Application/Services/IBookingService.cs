@@ -12,6 +12,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
         Task<bool> CreateBookingAsync(BookingDto bookingDto);
         Task<decimal> CalculateTotalPriceAsync(int roomId, DateTime checkInDate, DateTime checkOutDate);
         Task<bool> CheckForBookingConflictAsync(BookingDto bookingDto);
+        public bool CheckDateRangeOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2);
 
     }
 }

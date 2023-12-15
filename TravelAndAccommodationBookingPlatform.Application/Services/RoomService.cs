@@ -42,7 +42,13 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
             try
             {
                 var room = await _roomRepository.GetByIdAsync(id);
-                return _mapper.Map<RoomDisplayDto>(room);
+
+                if (room != null)
+                {
+                    return _mapper.Map<RoomDisplayDto>(room);
+                }
+                _logger.LogWarning($"Room with ID {id} not found.");
+                return null;
             }
             catch (Exception ex)
             {

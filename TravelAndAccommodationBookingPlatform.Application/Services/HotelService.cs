@@ -74,8 +74,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 {
                     throw new InvalidOperationException($"Hotel with ID {id} not found");
                 }
-                hotelDto.ModifiedAt=DateTime.Now;
                 _mapper.Map(hotelDto, existingHotel);
+                existingHotel.ModifiedAt = DateTime.Now;
 
                 await _hotelRepository.UpdateAsync(existingHotel);
             }
@@ -170,8 +170,6 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 return new List<HotelDisplayDto>();
             }
         }
-
-
 
     }
 }

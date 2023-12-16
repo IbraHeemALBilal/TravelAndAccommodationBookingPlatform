@@ -57,6 +57,5 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
                 Console.WriteLine($"Error in SaveAsync: {ex.Message}");
             }
         }
-
     }
 }

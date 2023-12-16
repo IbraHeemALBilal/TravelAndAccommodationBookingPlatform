@@ -80,8 +80,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 {
                     throw new InvalidOperationException($"Room with ID {id} not found");
                 }
-                roomDto.ModifiedAt= DateTime.Now;
                 _mapper.Map(roomDto, existingRoom);
+                existingRoom.ModifiedAt = DateTime.Now;
 
                 await _roomRepository.UpdateAsync(existingRoom);
             }

@@ -120,15 +120,40 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
         }
         public async Task<List<Hotel>> GetHotelsWithAvailableDealsAsync()
         {
-            try
-            {
+             try
+             {
                 return await _context.Hotels
-                    .Include(h => h.Rooms)
-                        .ThenInclude(r => r.Deals)
-                    .Where(h => h.Rooms.Any(r => r.Deals.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)))
-                    .Take(3)
-                    .ToListAsync();
-            }
+                     .Where(h => h.Rooms.Any(r => r.Deals.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now)))
+                     .Select(h => new Hotel
+                     {
+                         HotelId = h.HotelId,
+                         Name = h.Name,
+                         StarRating = h.StarRating,
+                         Owner = h.Owner,
+                         Location = h.Location,
+                         Description = h.Description,
+                         CityId = h.CityId,
+                         CreatedAt = h.CreatedAt,
+                         ModifiedAt = h.ModifiedAt,
+                         Rooms = h.Rooms.Where(r => r.Deals.Any(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now))
+                               .Select(r => new Room
+                               {
+                                   RoomId = r.RoomId,
+                                   AdultCapacity = r.AdultCapacity,
+                                   ChildrenCapacity = r.ChildrenCapacity,
+                                   PricePerNight = r.PricePerNight,
+                                   HotelId = r.HotelId,
+                                   RoomType = r.RoomType,
+                                   Description = r.Description,
+                                   CreatedAt = r.CreatedAt,
+                                   ModifiedAt = r.ModifiedAt,
+                                   NumberOfRooms = r.NumberOfRooms,
+                                   Deals = r.Deals.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).ToList()
+                               })
+                               .ToList()
+                     })
+                     .ToListAsync();
+             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in GetHotelsWithAvailableDealsAsync: {ex.Message}");

@@ -112,6 +112,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
                 Console.WriteLine($"Error in SaveAsync: {ex.Message}");
             }
         }
+
         public async Task<Room> GetRoomWithDealsAsync(int id)
         {
             try

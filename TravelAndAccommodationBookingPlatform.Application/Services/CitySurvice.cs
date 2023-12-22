@@ -68,7 +68,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
             }
         }
 
-        public async Task UpdateCityAsync(int id, CityDto cityUpdateDto)
+        public async Task<bool> UpdateCityAsync(int id, CityDto cityDto)
         {
             try
             {
@@ -76,33 +76,42 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
 
                 if (existingCity == null)
                 {
-                    throw new InvalidOperationException($"City with ID {id} not found");
+                    return false; 
                 }
-                _mapper.Map(cityUpdateDto, existingCity);
+
+                _mapper.Map(cityDto, existingCity);
                 existingCity.ModifiedAt = DateTime.Now;
 
                 await _cityRepository.UpdateAsync(existingCity);
+
+                return true; 
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in UpdateCityAsync: {ex.Message}");
+                return false; 
             }
         }
 
-
-        public async Task DeleteCityAsync(int id)
+        public async Task<bool> DeleteCityAsync(int id)
         {
             try
             {
                 var cityToDelete = await _cityRepository.GetByIdAsync(id);
-                if (cityToDelete != null)
+
+                if (cityToDelete == null)
                 {
-                    await _cityRepository.DeleteAsync(cityToDelete);
+                    return false;
                 }
+
+                await _cityRepository.DeleteAsync(cityToDelete);
+
+                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in DeleteCityAsync: {ex.Message}");
+                return false;
             }
         }
         public async Task<List<CityDisplayDto>> GetTrendingDestinationsAsync()

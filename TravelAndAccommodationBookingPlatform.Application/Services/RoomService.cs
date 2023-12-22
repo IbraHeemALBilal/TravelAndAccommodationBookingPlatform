@@ -70,7 +70,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
             }
         }
 
-        public async Task UpdateRoomAsync(int id, RoomDto roomDto)
+        public async Task<bool> UpdateRoomAsync(int id, RoomDto roomDto)
         {
             try
             {
@@ -78,32 +78,37 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
 
                 if (existingRoom == null)
                 {
-                    throw new InvalidOperationException($"Room with ID {id} not found");
+                    return false; 
                 }
                 _mapper.Map(roomDto, existingRoom);
                 existingRoom.ModifiedAt = DateTime.Now;
-
                 await _roomRepository.UpdateAsync(existingRoom);
+                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in UpdateRoomAsync: {ex.Message}");
+                return false;
             }
         }
-
-        public async Task DeleteRoomAsync(int id)
+        public async Task<bool> DeleteRoomAsync(int id)
         {
             try
             {
                 var roomToDelete = await _roomRepository.GetByIdAsync(id);
+
                 if (roomToDelete != null)
                 {
                     await _roomRepository.DeleteAsync(roomToDelete);
+                    return true;
                 }
+
+                return false; 
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in DeleteRoomAsync: {ex.Message}");
+                return false; 
             }
         }
     }

@@ -13,8 +13,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
         Task<List<HotelDisplayDto>> GetAllHotelsAsync();
         Task<HotelDisplayDto> GetHotelByIdAsync(int id);
         Task AddHotelAsync(HotelDto hotelDto);
-        Task UpdateHotelAsync(int id, HotelDto hotelDto);
-        Task DeleteHotelAsync(int id);
+        Task<bool> UpdateHotelAsync(int id, HotelDto hotelDto);
+        Task<bool> DeleteHotelAsync(int id);
         Task<List<HotelDisplayDto>> FilterHotelsAsync(HotelFilterBodyDto filterBody);
         Task<List<HotelDisplayDto>> GetVisitedHotelsByUserAsync(int userId);
         Task<List<HotelDisplayDto>> GetHotelsWithAvailableDealsAsync();

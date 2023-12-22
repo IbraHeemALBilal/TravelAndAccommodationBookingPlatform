@@ -13,7 +13,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
         Task<List<RoomDisplayDto>> GetAllRoomsAsync();
         Task<RoomDisplayDto> GetRoomByIdAsync(int id);
         Task AddRoomAsync(RoomDto roomDto);
-        Task UpdateRoomAsync(int id, RoomDto roomDto);
-        Task DeleteRoomAsync(int id);
+        Task<bool> UpdateRoomAsync(int id, RoomDto roomDto);
+        Task<bool> DeleteRoomAsync(int id);
     }
 }

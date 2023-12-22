@@ -68,18 +68,24 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         }
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateCity(int id, [FromBody] CityDto cityUpdateDto)
+        public async Task<IActionResult> UpdateCity(int id, [FromBody] CityDto cityDto)
         {
             try
             {
-                await _cityService.UpdateCityAsync(id, cityUpdateDto);
+                var updateResult = await _cityService.UpdateCityAsync(id, cityDto);
 
-                return Ok(new { message = "City updated successfully" });
+                if (updateResult)
+                {
+                    return Ok(new { message = "City updated successfully" });
+                }
+                else
+                {
+                    return NotFound(new { message = $"City with ID {id} not found" });
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in UpdateCity: {ex.Message}");
-
                 return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Internal server error", message = ex.Message });
             }
         }
@@ -89,8 +95,16 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         {
             try
             {
-                await _cityService.DeleteCityAsync(id);
-                return Ok(new { message = "City deleted successfully" });
+                var deletionResult = await _cityService.DeleteCityAsync(id);
+
+                if (deletionResult)
+                {
+                    return Ok(new { message = "City deleted successfully" });
+                }
+                else
+                {
+                    return NotFound(new { message = $"City with ID {id} not found" });
+                }
             }
             catch (Exception ex)
             {

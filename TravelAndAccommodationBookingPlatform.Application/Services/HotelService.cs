@@ -63,8 +63,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 _logger.LogError($"Error in AddHotelAsync: {ex.Message}");
             }
         }
-
-        public async Task UpdateHotelAsync(int id, HotelDto hotelDto)
+        public async Task<bool> UpdateHotelAsync(int id, HotelDto hotelDto)
         {
             try
             {
@@ -72,31 +71,40 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
 
                 if (existingHotel == null)
                 {
-                    throw new InvalidOperationException($"Hotel with ID {id} not found");
+                    return false; 
                 }
                 _mapper.Map(hotelDto, existingHotel);
                 existingHotel.ModifiedAt = DateTime.Now;
 
                 await _hotelRepository.UpdateAsync(existingHotel);
+
+                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in UpdateHotelAsync: {ex.Message}");
+                return false; 
             }
         }
-        public async Task DeleteHotelAsync(int id)
+        public async Task<bool> DeleteHotelAsync(int id)
         {
             try
             {
                 var hotelToDelete = await _hotelRepository.GetByIdAsync(id);
-                if (hotelToDelete != null)
+
+                if (hotelToDelete == null)
                 {
-                    await _hotelRepository.DeleteAsync(hotelToDelete);
+                    return false;
                 }
+
+                await _hotelRepository.DeleteAsync(hotelToDelete);
+
+                return true; 
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error in DeleteHotelAsync: {ex.Message}");
+                return false; 
             }
         }
         public async Task<List<HotelDisplayDto>> FilterHotelsAsync(HotelFilterBodyDto filterBody)

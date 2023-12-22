@@ -76,14 +76,20 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         {
             try
             {
-                await _hotelService.UpdateHotelAsync(id, hotelDto);
+                var updateResult = await _hotelService.UpdateHotelAsync(id, hotelDto);
 
-                return Ok(new { message = "Hotel updated successfully" });
+                if (updateResult)
+                {
+                    return Ok(new { message = "Hotel updated successfully" });
+                }
+                else
+                {
+                    return NotFound(new { message = $"Hotel with ID {id} not found" });
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in UpdateCity: {ex.Message}");
-
                 return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Internal server error", message = ex.Message });
             }
         }
@@ -94,8 +100,16 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         {
             try
             {
-                await _hotelService.DeleteHotelAsync(id);
-                return Ok(new { message = "Hotel deleted successfully" });
+                var deletionResult = await _hotelService.DeleteHotelAsync(id);
+
+                if (deletionResult)
+                {
+                    return Ok(new { message = "Hotel deleted successfully" });
+                }
+                else
+                {
+                    return NotFound(new { message = $"Hotel with ID {id} not found" });
+                }
             }
             catch (Exception ex)
             {

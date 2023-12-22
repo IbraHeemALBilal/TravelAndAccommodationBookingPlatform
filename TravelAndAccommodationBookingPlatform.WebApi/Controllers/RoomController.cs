@@ -75,8 +75,16 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         {
             try
             {
-                await _roomService.UpdateRoomAsync(id,roomDto);
-                return Ok(new { message = "Room updated successfully" });
+                var updateResult = await _roomService.UpdateRoomAsync(id, roomDto);
+
+                if (updateResult)
+                {
+                    return Ok(new { message = "Room updated successfully" });
+                }
+                else
+                {
+                    return NotFound(new { message = $"Room with ID {id} not found" });
+                }
             }
             catch (Exception ex)
             {
@@ -90,14 +98,23 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         {
             try
             {
-                await _roomService.DeleteRoomAsync(id);
-                return Ok(new { message = "Room deleted successfully" });
+                var deletionResult = await _roomService.DeleteRoomAsync(id);
+
+                if (deletionResult)
+                {
+                    return Ok(new { message = "Room deleted successfully" });
+                }
+                else
+                {
+                    return NotFound(new { message = $"Room with ID {id} not found" });
+                }
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
             }
         }
+
 
     }
 }

@@ -13,8 +13,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
         Task<List<CityDisplayDto>> GetAllCitiesAsync();
         Task<CityDisplayDto> GetCityByIdAsync(int id);
         Task AddCityAsync(CityDto cityDto);
-        Task UpdateCityAsync(int id, CityDto cityUpdateDto);
-        Task DeleteCityAsync(int id);
+        Task<bool> UpdateCityAsync(int id, CityDto cityDto);
+        Task<bool> DeleteCityAsync(int id);
         Task<List<CityDisplayDto>>GetTrendingDestinationsAsync();
     }
 }

@@ -16,6 +16,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Entities
         public UserRole Role { get; set; }
         public List<Booking> Bookings { get; set; }
         public List<Review> Reviews { get; set; }
+
         public bool VerifyPassword(string enteredPassword)
         {
             return BCrypt.Net.BCrypt.Verify(enteredPassword, PasswordHash);

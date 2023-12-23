@@ -36,7 +36,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Your API", Version = "v1" });
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "TravelAndAccommodationBookingPlatform", Version = "v1" });
 
                 var jwtSettings = _configuration.GetSection("JwtSettings");
                 var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]);

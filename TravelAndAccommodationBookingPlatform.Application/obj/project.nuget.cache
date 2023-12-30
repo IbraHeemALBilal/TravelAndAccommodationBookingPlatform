@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "apVHH0Q2qP1k+cd+IOVMfJNLhtx3lyHO/EmL68KC1l37nD7rb4+ydZIK6IM2pHXifxjX0GNQBDSiC518eDqS7g==",
+  "dgSpecHash": "va2HNSjyfrnWD85EIC3H+/zKbDUZYFoiPiI+3qIUgz7fOFFUgg+D/IdzUNq8GmFBnkHWzh8+AmgC9cPMQgXq9g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ola\\Desktop\\Travel and Accommodation Booking Platform\\TravelAndAccommodationBookingPlatform.Application\\TravelAndAccommodationBookingPlatform.Application.csproj",
+  "projectFilePath": "C:\\Users\\Ola\\Desktop\\TravelAndAccommodationBookingPlatform\\TravelAndAccommodationBookingPlatform.Application\\TravelAndAccommodationBookingPlatform.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ola\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Ola\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",

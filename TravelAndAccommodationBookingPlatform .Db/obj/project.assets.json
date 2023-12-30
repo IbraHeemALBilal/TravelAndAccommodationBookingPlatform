@@ -2040,11 +2040,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ola\\Desktop\\Travel and Accommodation Booking Platform\\TravelAndAccommodationBookingPlatform .Db\\TravelAndAccommodationBookingPlatform .Db.csproj",
+      "projectUniqueName": "C:\\Users\\Ola\\Desktop\\TravelAndAccommodationBookingPlatform\\TravelAndAccommodationBookingPlatform .Db\\TravelAndAccommodationBookingPlatform .Db.csproj",
       "projectName": "TravelAndAccommodationBookingPlatform .Db",
-      "projectPath": "C:\\Users\\Ola\\Desktop\\Travel and Accommodation Booking Platform\\TravelAndAccommodationBookingPlatform .Db\\TravelAndAccommodationBookingPlatform .Db.csproj",
+      "projectPath": "C:\\Users\\Ola\\Desktop\\TravelAndAccommodationBookingPlatform\\TravelAndAccommodationBookingPlatform .Db\\TravelAndAccommodationBookingPlatform .Db.csproj",
       "packagesPath": "C:\\Users\\Ola\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ola\\Desktop\\Travel and Accommodation Booking Platform\\TravelAndAccommodationBookingPlatform .Db\\obj\\",
+      "outputPath": "C:\\Users\\Ola\\Desktop\\TravelAndAccommodationBookingPlatform\\TravelAndAccommodationBookingPlatform .Db\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ola\\AppData\\Roaming\\NuGet\\NuGet.Config",

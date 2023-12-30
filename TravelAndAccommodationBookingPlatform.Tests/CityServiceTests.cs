@@ -111,7 +111,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
         }
 
         [Fact]
-        public async Task UpdateCityAsync_ShouldNotThrowException_WhenCityExists()
+        public async Task UpdateCityAsync_ShouldReturnTrue_WhenCityExists()
         {
             // Arrange
             var fakeCityId = 1;
@@ -121,14 +121,13 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockCityRepository.Setup(repo => repo.GetByIdAsync(fakeCityId)).ReturnsAsync(existingCity);
 
             // Act & Assert
-            Func<Task> act = async () => await _cityService.UpdateCityAsync(fakeCityId, fakeCityDto);
-            await act.Should().NotThrowAsync();
-            _mockCityRepository.Verify(repo => repo.UpdateAsync(It.IsAny<City>()), Times.Once);
+            var result = await _cityService.UpdateCityAsync(fakeCityId, fakeCityDto);
+            result.Should().Be(true);
 
 
         }
         [Fact]
-        public async Task UpdateCityAsync_ShouldNotThrowException_WhenCityDoesNotExist()
+        public async Task UpdateCityAsync_ShouldReturnFalse_WhenCityDoesNotExist()
         {
             // Arrange
             var nonExistentCityId = 999;
@@ -137,14 +136,14 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockCityRepository.Setup(repo => repo.GetByIdAsync(nonExistentCityId)).ReturnsAsync((City)null);
 
             // Act & Assert
-            _mockCityRepository.Verify(repo => repo.UpdateAsync(It.IsAny<City>()), Times.Never);
-
+            var result = await _cityService.UpdateCityAsync(nonExistentCityId, fakeCityDto);
+            result.Should().Be(false);
         }
 
 
 
         [Fact]
-        public async Task DeleteCityAsync_ShouldNotThrowException_WhenCityExists()
+        public async Task DeleteCityAsync_ShouldReturnTrue_WhenCityExists()
         {
             // Arrange
             var fakeCityId = 1;
@@ -153,13 +152,12 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockCityRepository.Setup(repo => repo.GetByIdAsync(fakeCityId)).ReturnsAsync(existingCity);
 
             // Act & Assert
-            Func<Task> act = async () => await _cityService.DeleteCityAsync(fakeCityId);
-            await act.Should().NotThrowAsync();
-            _mockCityRepository.Verify(repo => repo.DeleteAsync(It.IsAny<City>()), Times.Once);
+            var result= await _cityService.DeleteCityAsync(fakeCityId);
+            result.Should().Be(true);
 
         }
         [Fact]
-        public async Task DeleteCityAsync_ShouldNotThrowException_WhenCityDoesNotExist()
+        public async Task DeleteCityAsync_ShouldReturnFalse_WhenCityDoesNotExist()
         {
             // Arrange
             var nonExistentCityId = 999;
@@ -167,7 +165,8 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockCityRepository.Setup(repo => repo.GetByIdAsync(nonExistentCityId)).ReturnsAsync((City)null);
 
             // Act & Assert
-            _mockCityRepository.Verify(repo => repo.DeleteAsync(It.IsAny<City>()), Times.Never);
+            var result = await _cityService.DeleteCityAsync(nonExistentCityId);
+            result.Should().Be(false);
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
@@ -104,7 +105,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
 
 
         [Fact]
-        public async Task UpdateRoomAsync_WithValidId_UpdatesRoom()
+        public async Task UpdateRoomAsync_ShouldReturnTrue_WhenIdExists()
         {
             // Arrange
             var roomId = 1;
@@ -114,13 +115,13 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockRoomRepository.Setup(repo => repo.GetByIdAsync(roomId)).ReturnsAsync(existingRoom);
 
             // Act
-            await _roomService.UpdateRoomAsync(roomId, roomDto);
+            var result = await _roomService.UpdateRoomAsync(roomId, roomDto);
 
             // Assert
-            _mockRoomRepository.Verify(repo => repo.UpdateAsync(It.IsAny<Room>()), Times.Once);
+            result.Should().Be(true);
         }
         [Fact]
-        public async Task UpdateRoomAsync_WithNonexistentRoomId_DoesNotUpdateRoom()
+        public async Task UpdateRoomAsync_ShouldReturnFalse_WhenIdNotExists()
         {
             // Arrange
             var roomId = 1;
@@ -129,16 +130,16 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockRoomRepository.Setup(repo => repo.GetByIdAsync(roomId)).ReturnsAsync((Room)null);
 
             // Act
-            await _roomService.UpdateRoomAsync(roomId, roomDto);
+            var result = await _roomService.UpdateRoomAsync(roomId, roomDto);
 
             // Assert
-            _mockRoomRepository.Verify(repo => repo.UpdateAsync(It.IsAny<Room>()), Times.Never);
+            result.Should().Be(false);
         }
 
 
 
         [Fact]
-        public async Task DeleteRoomAsync_WithValidId_DeletesRoom()
+        public async Task DeleteRoomAsync_ShouldReturnTrue_WhenIdExists()
         {
             // Arrange
             var roomId = 1;
@@ -146,13 +147,13 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockRoomRepository.Setup(repo => repo.GetByIdAsync(roomId)).ReturnsAsync(existingRoom);
 
             // Act
-            await _roomService.DeleteRoomAsync(roomId);
+            var result = await _roomService.DeleteRoomAsync(roomId);
 
             // Assert
-            _mockRoomRepository.Verify(repo => repo.DeleteAsync(It.IsAny<Room>()), Times.Once);
+            result.Should().Be(true);
         }
         [Fact]
-        public async Task DeleteRoomAsync_WithNonexistentRoomId_DoesNotDeleteRoom()
+        public async Task DeleteRoomAsync_ShouldReturnFalse_WhenIdNotExists()
         {
             // Arrange
             var roomId = 1;
@@ -160,10 +161,10 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockRoomRepository.Setup(repo => repo.GetByIdAsync(roomId)).ReturnsAsync((Room)null);
 
             // Act
-            await _roomService.DeleteRoomAsync(roomId);
+            var result = await _roomService.DeleteRoomAsync(roomId);
 
             // Assert
-            _mockRoomRepository.Verify(repo => repo.DeleteAsync(It.IsAny<Room>()), Times.Never);
+            result.Should().Be(false);
         }
 
     }

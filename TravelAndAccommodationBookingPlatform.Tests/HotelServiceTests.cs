@@ -111,7 +111,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
         }
 
         [Fact]
-        public async Task UpdateHotelAsync_ShouldNotThrowException_WhenHotelExists()
+        public async Task UpdateHotelAsync_ShouldReturnTrue_WhenHotelExists()
         {
             // Arrange
             var fakeHotelId = 1;
@@ -121,15 +121,13 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             _mockHotelRepository.Setup(repo => repo.GetByIdAsync(fakeHotelId)).ReturnsAsync(existingHotel);
 
             // Act
-            Func<Task> act = async () => await _hotelService.UpdateHotelAsync(fakeHotelId, fakeHotelDto);
+            var result= await _hotelService.UpdateHotelAsync(fakeHotelId, fakeHotelDto);
 
             // Assert
-            await act.Should().NotThrowAsync();
-            _mockHotelRepository.Verify(repo => repo.UpdateAsync(It.IsAny<Hotel>()), Times.Once);
-
+            result.Should().Be(true);
         }
         [Fact]
-        public async Task UpdateHotelAsync_ShouldNotThrowException_WhenHotelDoesNotExist()
+        public async Task UpdateHotelAsync_ShouldReturnFalse_WhenHotelDoesNotExist()
         {
             // Arrange
             var nonExistentHotelId = 999;
@@ -137,17 +135,18 @@ namespace TravelAndAccommodationBookingPlatform.Tests
 
             _mockHotelRepository.Setup(repo => repo.GetByIdAsync(nonExistentHotelId)).ReturnsAsync((Hotel)null);
 
-            // Act & Assert
-            Func<Task> act = async () => await _hotelService.UpdateHotelAsync(nonExistentHotelId, fakeHotelDto);
+            // Act
+            var result = await _hotelService.UpdateHotelAsync(nonExistentHotelId, fakeHotelDto);
 
-            _mockHotelRepository.Verify(repo => repo.UpdateAsync(It.IsAny<Hotel>()), Times.Never);
+            // Assert
+            result.Should().Be(false);
         }
 
 
 
 
         [Fact]
-        public async Task DeleteHotelAsync_ShouldNotThrowException_WhenHotelExists()
+        public async Task DeleteHotelAsync_ShouldReturnTrue_WhenHotelExists()
         {
             // Arrange
             var fakeHotelId = 1;
@@ -155,23 +154,25 @@ namespace TravelAndAccommodationBookingPlatform.Tests
 
             _mockHotelRepository.Setup(repo => repo.GetByIdAsync(fakeHotelId)).ReturnsAsync(existingHotel);
 
-            // Act & Assert
-            Func<Task> act = async () => await _hotelService.DeleteHotelAsync(fakeHotelId);
-            await act.Should().NotThrowAsync();
+            // Act 
+            var result= await _hotelService.DeleteHotelAsync(fakeHotelId);
+
+            //Assert
+            result.Should().Be(true);
         }
         [Fact]
-        public async Task DeleteHotelAsync_ShouldNotThrowException_WhenHotelDoesNotExist()
+        public async Task DeleteHotelAsync_ShouldReturnFalse_WhenHotelDoesNotExist()
         {
             // Arrange
             var nonExistentHotelId = 999; 
 
             _mockHotelRepository.Setup(repo => repo.GetByIdAsync(nonExistentHotelId)).ReturnsAsync((Hotel)null);
 
-            // Act
-            Func<Task> act = async () => await _hotelService.DeleteHotelAsync(nonExistentHotelId);
+            // Act 
+            var result = await _hotelService.DeleteHotelAsync(nonExistentHotelId);
 
-            //  Assert
-            _mockHotelRepository.Verify(repo => repo.DeleteAsync(It.IsAny<Hotel>()), Times.Never);
+            //Assert
+            result.Should().Be(false);
 
         }
 

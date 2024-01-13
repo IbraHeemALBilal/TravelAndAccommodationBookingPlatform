@@ -10,6 +10,6 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
     public interface IDealRepository
     {
         Task AddAsync(Deal entity);
-        Task<Deal> GetDealByRoomAndDateAsync(int roomId);
+        Task<Deal> GetDealByRoomAndDateAsync(int roomId, DateTime startDate, DateTime endDate);
     }
 }

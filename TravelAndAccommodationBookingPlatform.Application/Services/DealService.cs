@@ -46,7 +46,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
 
         public async Task<bool> DealExistsForRoomAsync(int roomId, DateTime startDate, DateTime endDate)
         {
-            var existingDeal = await _dealRepository.GetDealByRoomAndDateAsync(roomId);
+            var existingDeal = await _dealRepository.GetDealByRoomAndDateAsync(roomId, startDate, endDate);
             return existingDeal != null;
         }
     }

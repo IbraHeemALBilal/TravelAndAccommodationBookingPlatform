@@ -39,11 +39,12 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
                 Console.WriteLine($"Error in SaveAsync: {ex.Message}");
             }
         }
-        public async Task<Deal> GetDealByRoomAndDateAsync(int roomId)
+        public async Task<Deal> GetDealByRoomAndDateAsync(int roomId, DateTime startDate, DateTime endDate)
         {
             return await _context.Deals
-                .FirstOrDefaultAsync(d =>
-                    d.RoomId == roomId);
+                .FirstOrDefaultAsync(d => d.RoomId == roomId &&
+                            ((d.StartDate >= startDate && d.StartDate <= endDate) ||
+                             (d.EndDate >= startDate && d.EndDate <= endDate)));
         }
     }
 }

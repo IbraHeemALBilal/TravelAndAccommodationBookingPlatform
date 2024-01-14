@@ -27,7 +27,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AddAsync: {ex.Message}");
+                throw new InvalidOperationException("Error while adding booking. See inner exception for details.", ex);
             }
         }
         public async Task<List<Booking>> GetBookingsForRoomAsync(int roomId)
@@ -42,7 +42,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetBookingsForRoomAsync: {ex.Message}");
+                throw new InvalidOperationException("Error while retrieving bookings for the room. See inner exception for details.", ex);
                 return new List<Booking>();
             }
         }
@@ -54,7 +54,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SaveAsync: {ex.Message}");
+                throw new InvalidOperationException("Error while saving changes. See inner exception for details.", ex);
             }
         }
     }

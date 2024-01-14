@@ -103,7 +103,7 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in CheckForBookingConflictAsync: {ex.Message}");
+                _logger.LogError($"Error in CheckForBookingConflictAsync: {ex.Message}");
                 return false;
             }
         }

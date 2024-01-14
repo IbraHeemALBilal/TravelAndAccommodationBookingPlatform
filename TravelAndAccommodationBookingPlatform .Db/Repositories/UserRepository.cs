@@ -19,7 +19,14 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
 
         public User GetByUsername(string username)
         {
-            return _context.Users.FirstOrDefault(u => u.Username == username);
+            try
+            {
+                return _context.Users.FirstOrDefault(u => u.Username == username);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error in GetByUsername: {ex.Message}", ex);
+            }
         }
     }
 }

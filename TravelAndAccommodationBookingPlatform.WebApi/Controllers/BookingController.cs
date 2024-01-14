@@ -22,22 +22,15 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBooking([FromBody] BookingDto bookingDto)
         {
-            try
-            {
-                bool result = await _bookingService.CreateBookingAsync(bookingDto);
+            bool result = await _bookingService.CreateBookingAsync(bookingDto);
 
-                if (result)
-                {
-                    return Ok(new { message = "Booking Created successfully" });
-                }
-                else
-                {
-                    return Conflict("Booking conflict detected. Cannot create the booking."); 
-                }
-            }
-            catch (Exception ex)
+            if (result)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+                return Ok(new { message = "Booking Created successfully" });
+            }
+            else
+            {
+                return Conflict("Booking conflict detected. Cannot create the booking.");
             }
         }
     }

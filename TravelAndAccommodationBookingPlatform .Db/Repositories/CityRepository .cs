@@ -24,8 +24,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetAllAsync: {ex.Message}");
-                return new List<City>();
+                throw new InvalidOperationException($"Error in GetAllAsync: {ex.Message}", ex);
             }
         }
         public async Task<City> GetByIdAsync(int id)
@@ -36,8 +35,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetByIdAsync: {ex.Message}");
-                return null;
+                throw new InvalidOperationException($"Error in GetByIdAsync: {ex.Message}", ex);
             }
         }
         public async Task AddAsync(City entity)
@@ -49,7 +47,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AddAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in AddAsync: {ex.Message}", ex);
             }
         }
         public async Task UpdateAsync(City entity)
@@ -61,7 +59,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in UpdateAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in UpdateAsync: {ex.Message}", ex);
             }
         }
         public async Task DeleteAsync(City entity)
@@ -73,7 +71,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in DeleteAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in DeleteAsync: {ex.Message}", ex);
             }
         }
         private async Task SaveAsync()
@@ -84,7 +82,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SaveAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in SaveAsync: {ex.Message}", ex);
             }
         }
         public async Task<List<City>> GetTrendingDestinationsAsync()
@@ -108,8 +106,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetTrendingDestinations: {ex.Message}");
-                return new List<City>();
+                throw new InvalidOperationException($"Error in GetTrendingDestinations: {ex.Message}", ex);
             }
         }
 

@@ -2,13 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using TravelAndAccommodationBookingPlatform.Db.Entities;
 using TravelAndAccommodationBookingPlatform.Application.Services;
 using TravelAndAccommodationBookingPlatform.Application.Dto;
-using TravelAndAccommodationBookingPlatform.Application.Dto_Display;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
-
 
 namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
@@ -18,6 +14,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
+
         public RoomController(IRoomService roomService)
         {
             _roomService = roomService;
@@ -26,69 +23,44 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllRooms()
         {
-            try
-            {
-                var roomsDto = await _roomService.GetAllRoomsAsync();
-                return Ok(roomsDto);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+            var roomsDto = await _roomService.GetAllRoomsAsync();
+            return Ok(roomsDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoomById(int id)
         {
-            try
+            var roomDto = await _roomService.GetRoomByIdAsync(id);
+
+            if (roomDto == null)
             {
-                var roomDto = await _roomService.GetRoomByIdAsync(id);
-                if (roomDto == null)
-                {
-                    return NotFound();
-                }
-                return Ok(roomDto);
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+
+            return Ok(roomDto);
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRoom([FromBody] RoomDto roomDto)
         {
-            try
-            {
-                await _roomService.AddRoomAsync(roomDto);
-                return Ok(new { message = "Room Created successfully" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+            await _roomService.AddRoomAsync(roomDto);
+            return Ok(new { message = "Room Created successfully" });
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRoom(int id, [FromBody] RoomDto roomDto)
         {
-            try
-            {
-                var updateResult = await _roomService.UpdateRoomAsync(id, roomDto);
+            var updateResult = await _roomService.UpdateRoomAsync(id, roomDto);
 
-                if (updateResult)
-                {
-                    return Ok(new { message = "Room updated successfully" });
-                }
-                else
-                {
-                    return NotFound(new { message = $"Room with ID {id} not found" });
-                }
-            }
-            catch (Exception ex)
+            if (updateResult)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+                return Ok(new { message = "Room updated successfully" });
+            }
+            else
+            {
+                return NotFound(new { message = $"Room with ID {id} not found" });
             }
         }
 
@@ -96,25 +68,16 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
-            try
-            {
-                var deletionResult = await _roomService.DeleteRoomAsync(id);
+            var deletionResult = await _roomService.DeleteRoomAsync(id);
 
-                if (deletionResult)
-                {
-                    return Ok(new { message = "Room deleted successfully" });
-                }
-                else
-                {
-                    return NotFound(new { message = $"Room with ID {id} not found" });
-                }
-            }
-            catch (Exception ex)
+            if (deletionResult)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+                return Ok(new { message = "Room deleted successfully" });
+            }
+            else
+            {
+                return NotFound(new { message = $"Room with ID {id} not found" });
             }
         }
-
-
     }
 }

@@ -21,20 +21,8 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateDeal([FromBody] DealDto dealDto)
         {
-            try
-            {
-                await _dealService.CreateDealAsync(dealDto);
-                return Ok("Deal created successfully");
-            }
-            catch (ArgumentException ex)
-            {
-                return Conflict(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in CreateDeal action: {ex.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
+            await _dealService.CreateDealAsync(dealDto);
+            return Ok("Deal created successfully");
         }
     }
 }

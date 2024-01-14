@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TravelAndAccommodationBookingPlatform.Db;
 using TravelAndAccommodationBookingPlatform.Db.Entities;
-using TravelAndAccommodationBookingPlatform.Db.Repositories;
-using TravelAndAccommodationBookingPlatform.Db.Repositories;
 
 namespace TravelAndAccommodationBookingPlatform.Db.Repositories
 {
@@ -23,13 +21,12 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             try
             {
                 return await _context.Rooms
-                        .Include(room => room.RoomImages) 
+                        .Include(room => room.RoomImages)
                         .ToListAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetAllAsync: {ex.Message}");
-                return new List<Room>();
+                throw new InvalidOperationException($"Error in GetAllAsync: {ex.Message}", ex);
             }
         }
 
@@ -57,8 +54,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetByIdAsync: {ex.Message}");
-                return null;
+                throw new InvalidOperationException($"Error in GetByIdAsync: {ex.Message}", ex);
             }
         }
 
@@ -71,7 +67,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AddAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in AddAsync: {ex.Message}", ex);
             }
         }
 
@@ -84,7 +80,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in UpdateAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in UpdateAsync: {ex.Message}", ex);
             }
         }
 
@@ -97,10 +93,10 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in DeleteAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in DeleteAsync: {ex.Message}", ex);
             }
         }
-        
+
         private async Task SaveAsync()
         {
             try
@@ -109,7 +105,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SaveAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in SaveAsync: {ex.Message}", ex);
             }
         }
 
@@ -124,10 +120,8 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetRoomWithDealsAsync: {ex.Message}");
-                return null;
+                throw new InvalidOperationException($"Error in GetRoomWithDealsAsync: {ex.Message}", ex);
             }
         }
-
     }
 }

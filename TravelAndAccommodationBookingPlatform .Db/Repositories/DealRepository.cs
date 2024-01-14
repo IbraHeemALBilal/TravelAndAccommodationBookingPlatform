@@ -25,7 +25,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AddAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in AddAsync: {ex.Message}", ex);
             }
         }
         private async Task SaveAsync()
@@ -36,15 +36,25 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SaveAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in SaveAsync: {ex.Message}", ex);
             }
         }
         public async Task<Deal> GetDealByRoomAndDateAsync(int roomId, DateTime startDate, DateTime endDate)
         {
-            return await _context.Deals
-                .FirstOrDefaultAsync(d => d.RoomId == roomId &&
-                            ((d.StartDate >= startDate && d.StartDate <= endDate) ||
-                             (d.EndDate >= startDate && d.EndDate <= endDate)));
+            try
+            {
+                return await _context.Deals
+                    .FirstOrDefaultAsync(d => d.RoomId == roomId &&
+                                ((d.StartDate >= startDate && d.StartDate <= endDate) ||
+                                (d.EndDate >= startDate && d.EndDate <= endDate) ||
+                                (d.StartDate <= startDate && d.EndDate >= startDate)||
+                                (d.StartDate <= startDate && d.EndDate >= endDate)
+                                ));
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error in GetDealByRoomAndDateAsync: {ex.Message}", ex);
+            }
         }
     }
 }

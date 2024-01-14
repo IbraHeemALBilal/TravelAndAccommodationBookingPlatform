@@ -34,12 +34,11 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
                 {
                     throw new ArgumentException("A deal already exists for the same room during the specified time period.");
                 }
-
                 await _dealRepository.AddAsync(newDeal);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in DealService.CreateDealAsync: {ex.Message}");
+                _logger.LogError($"Error in DealService.CreateDealAsync: {ex.Message}");
                 throw;
             }
         }

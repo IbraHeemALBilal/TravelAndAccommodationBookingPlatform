@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using TravelAndAccommodationBookingPlatform.Db.Entities;
 using TravelAndAccommodationBookingPlatform.Application.Services;
 using TravelAndAccommodationBookingPlatform.Application.Dto;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
 
 namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
@@ -25,72 +23,44 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllHotels()
         {
-            try
-            {
-                var hotelsDto = await _hotelService.GetAllHotelsAsync();
-                return Ok(hotelsDto);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+            var hotelsDto = await _hotelService.GetAllHotelsAsync();
+            return Ok(hotelsDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetHotelById(int id)
         {
-            try
+            var hotelDto = await _hotelService.GetHotelByIdAsync(id);
+
+            if (hotelDto == null)
             {
-                var hotelDto = await _hotelService.GetHotelByIdAsync(id);
-                if (hotelDto == null)
-                {
-                    return NotFound();
-                }
-                return Ok(hotelDto);
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetHotelById: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+
+            return Ok(hotelDto);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateHotel([FromBody] HotelDto hotelDto)
         {
-            try
-            {
-                await _hotelService.AddHotelAsync(hotelDto);
-                return Ok(new { message = "Hotel Created successfully" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+            await _hotelService.AddHotelAsync(hotelDto);
+            return Ok(new { message = "Hotel Created successfully" });
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateHotel(int id, [FromBody] HotelDto hotelDto)
         {
-            try
-            {
-                var updateResult = await _hotelService.UpdateHotelAsync(id, hotelDto);
+            var updateResult = await _hotelService.UpdateHotelAsync(id, hotelDto);
 
-                if (updateResult)
-                {
-                    return Ok(new { message = "Hotel updated successfully" });
-                }
-                else
-                {
-                    return NotFound(new { message = $"Hotel with ID {id} not found" });
-                }
-            }
-            catch (Exception ex)
+            if (updateResult)
             {
-                Console.WriteLine($"Error in UpdateCity: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Internal server error", message = ex.Message });
+                return Ok(new { message = "Hotel updated successfully" });
+            }
+            else
+            {
+                return NotFound(new { message = $"Hotel with ID {id} not found" });
             }
         }
 
@@ -98,69 +68,40 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
-            try
-            {
-                var deletionResult = await _hotelService.DeleteHotelAsync(id);
+            var deletionResult = await _hotelService.DeleteHotelAsync(id);
 
-                if (deletionResult)
-                {
-                    return Ok(new { message = "Hotel deleted successfully" });
-                }
-                else
-                {
-                    return NotFound(new { message = $"Hotel with ID {id} not found" });
-                }
-            }
-            catch (Exception ex)
+            if (deletionResult)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+                return Ok(new { message = "Hotel deleted successfully" });
+            }
+            else
+            {
+                return NotFound(new { message = $"Hotel with ID {id} not found" });
             }
         }
+
         [HttpGet("filter")]
         [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> FilterHotels([FromQuery] HotelFilterBodyDto filterBody)
         {
-            try
-            {
-                var filteredHotels = await _hotelService.FilterHotelsAsync(filterBody);
-                return Ok(filteredHotels);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+            var filteredHotels = await _hotelService.FilterHotelsAsync(filterBody);
+            return Ok(filteredHotels);
         }
+
         [HttpGet("deals")]
         [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> GetHotelsWithAvailableDeals()
         {
-            try
-            {
-                var hotelsWithDealsDto = await _hotelService.GetHotelsWithAvailableDealsAsync();
-                return Ok(hotelsWithDealsDto);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetHotelsWithAvailableDeals action: {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
-            }
+            var hotelsWithDealsDto = await _hotelService.GetHotelsWithAvailableDealsAsync();
+            return Ok(hotelsWithDealsDto);
         }
 
         [HttpGet("visited-by-user/{userId}")]
         [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> GetVisitedHotelsByUser(int userId)
         {
-            try
-            {
-                var visitedHotels = await _hotelService.GetVisitedHotelsByUserAsync(userId);
-                return Ok(visitedHotels);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
-            }
+            var visitedHotels = await _hotelService.GetVisitedHotelsByUserAsync(userId);
+            return Ok(visitedHotels);
         }
-
-
     }
 }

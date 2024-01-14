@@ -24,8 +24,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetAllAsync: {ex.Message}");
-                return new List<Hotel>();
+                throw new InvalidOperationException($"Error in GetAllAsync: {ex.Message}", ex);
             }
         }
         public async Task<Hotel> GetByIdAsync(int id)
@@ -40,8 +39,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetByIdAsync: {ex.Message}");
-                return null;
+                throw new InvalidOperationException($"Error in GetByIdAsync: {ex.Message}", ex);
             }
         }
         public async Task AddAsync(Hotel entity)
@@ -53,7 +51,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AddAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in AddAsync: {ex.Message}", ex);
             }
         }
         public async Task UpdateAsync(Hotel entity)
@@ -65,7 +63,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in UpdateAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in UpdateAsync: {ex.Message}", ex);
             }
         }
         public async Task DeleteAsync(Hotel entity)
@@ -77,7 +75,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in DeleteAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in DeleteAsync: {ex.Message}", ex);
             }
         }
         private async Task SaveAsync()
@@ -88,7 +86,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SaveAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in SaveAsync: {ex.Message}", ex);
             }
 
         }
@@ -104,19 +102,26 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetAllWithRelatedDataAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in GetAllWithRelatedDataAsync: {ex.Message}", ex);
                 return new List<Hotel>();
             }
         }
         public async Task<List<Hotel>> GetVisitedHotelsByUserAsync(int userId)
         {
-            return await _context.Bookings
-                .Where(b => b.UserId == userId)
-                .OrderByDescending(b => b.CheckInDate)
-                .Select(b => b.Room.Hotel)
-                .Distinct()
-                .Take(3)
-                .ToListAsync();
+            try
+            {
+                return await _context.Bookings
+                    .Where(b => b.UserId == userId)
+                    .OrderByDescending(b => b.CheckInDate)
+                    .Select(b => b.Room.Hotel)
+                    .Distinct()
+                    .Take(3)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error in GetVisitedHotelsByUserAsync: {ex.Message}", ex);
+            }
         }
         public async Task<List<Hotel>> GetHotelsWithAvailableDealsAsync()
         {
@@ -156,7 +161,7 @@ namespace TravelAndAccommodationBookingPlatform.Db.Repositories
              }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetHotelsWithAvailableDealsAsync: {ex.Message}");
+                throw new InvalidOperationException($"Error in GetHotelsWithAvailableDealsAsync: {ex.Message}", ex);
                 return new List<Hotel>();
             }
         }

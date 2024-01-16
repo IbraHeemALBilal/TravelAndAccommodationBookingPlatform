@@ -44,7 +44,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
                 EndDate = DateTime.Now.AddDays(5),
             };
 
-            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(dealDto.RoomId))
+            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(dealDto.RoomId,dealDto.StartDate, dealDto.EndDate))
                               .ReturnsAsync((Deal)null);
 
             // Act
@@ -65,7 +65,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
                 EndDate = DateTime.Now.AddDays(5),
             };
 
-            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(dealDto.RoomId))
+            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(dealDto.RoomId,dealDto.StartDate , dealDto.EndDate))
                               .ReturnsAsync(new Deal { DealId = 1 }); 
 
             // Act and Assert
@@ -85,7 +85,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             var startDate = DateTime.Now.AddDays(1);
             var endDate = DateTime.Now.AddDays(5);
 
-            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(roomId))
+            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(roomId, startDate, endDate))
                               .ReturnsAsync(new Deal { DealId = 1 });
 
             // Act
@@ -103,7 +103,7 @@ namespace TravelAndAccommodationBookingPlatform.Tests
             var startDate = DateTime.Now.AddDays(1);
             var endDate = DateTime.Now.AddDays(5);
 
-            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(roomId))
+            _mockDealRepository.Setup(repo => repo.GetDealByRoomAndDateAsync(roomId, startDate, endDate))
                               .ReturnsAsync((Deal)null);
 
             // Act

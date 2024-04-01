@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dKA2V/b3PQJ8BiGrRXlbEgJYEPg+3/G8J4N+YNUxYs/lu5fofmlyi5bq92up0rT6udhxWezfSR9su+bze31Cpg==",
+  "dgSpecHash": "874buwxcbumWnxlzHH1iXX3rqlXBJ5XholEiyyHh1xiJVOulGRQZ/USnpYXd71INuZ4dIvNLvE0f6ihprag8XA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ola\\Desktop\\TravelAndAccommodationBookingPlatform\\TravelAndAccommodationBookingPlatform.WebApi\\TravelAndAccommodationBookingPlatform.WebApi.csproj",
+  "projectFilePath": "C:\\Users\\Ola\\Desktop\\AAUP\\Internship\\Projects\\TravelAndAccommodationBookingPlatform\\TravelAndAccommodationBookingPlatform.WebApi\\TravelAndAccommodationBookingPlatform.WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ola\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Ola\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

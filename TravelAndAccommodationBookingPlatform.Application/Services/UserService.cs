@@ -14,10 +14,10 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<IUserRepository> _logger;
+        private readonly ILogger<IUserService> _logger;
         public UserService(IUserRepository userRepository 
             ,IMapper mapper 
-            ,ILogger<IUserRepository> logger)
+            ,ILogger<IUserService> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;

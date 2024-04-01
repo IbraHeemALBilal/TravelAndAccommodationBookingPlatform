@@ -14,9 +14,9 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<IRoomRepository> _logger; 
+        private readonly ILogger<IRoomService> _logger; 
 
-        public RoomService(IRoomRepository roomRepository, IMapper mapper, ILogger<IRoomRepository> logger)
+        public RoomService(IRoomRepository roomRepository, IMapper mapper, ILogger<IRoomService> logger)
         {
             _roomRepository = roomRepository;
             _mapper = mapper;

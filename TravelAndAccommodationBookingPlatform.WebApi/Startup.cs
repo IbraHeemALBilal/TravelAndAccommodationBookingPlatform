@@ -1,13 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using TravelAndAccommodationBookingPlatform.Db.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using TravelAndAccommodationBookingPlatform.Db.Repositories;
 using TravelAndAccommodationBookingPlatform.Application.Services;
-using AutoMapper;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using TravelAndAccommodationBookingPlatform.Application.Dto;
@@ -15,7 +8,6 @@ using TravelAndAccommodationBookingPlatform.Application.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System;
 using TravelAndAccommodationBookingPlatform.Application.Profiles;
 using TravelAndAccommodationBookingPlatform.Db;
 
@@ -122,6 +114,14 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
             });
 
             services.AddAuthorization();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.WithOrigins("http://localhost:7270")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -145,6 +145,7 @@ namespace TravelAndAccommodationBookingPlatform.WebApi
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

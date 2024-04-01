@@ -8,7 +8,6 @@ namespace TravelAndAccommodationBookingPlatform.WebApi.Controllers
 {
     [Route("api/cities")]
     [ApiController]
-    [Authorize]
     public class CityController : ControllerBase
     {
         private readonly ICityService _cityService;

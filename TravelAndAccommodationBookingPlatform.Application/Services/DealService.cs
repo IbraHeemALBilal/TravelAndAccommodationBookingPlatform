@@ -16,8 +16,8 @@ namespace TravelAndAccommodationBookingPlatform.Application.Services
     {
         private readonly IDealRepository _dealRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<IDealRepository> _logger;
-        public DealService(IDealRepository dealRepository , IMapper mapper , ILogger<IDealRepository> logger)
+        private readonly ILogger<IDealService> _logger;
+        public DealService(IDealRepository dealRepository , IMapper mapper , ILogger<IDealService> logger)
         {
             _dealRepository = dealRepository;
             _mapper = mapper;
